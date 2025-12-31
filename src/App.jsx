@@ -15,7 +15,7 @@ const ItemCard = ({ item }) => (
         <p className="text-sm text-slate-500">{item.category}</p>
       </div>
     </div>
-    <p className="text-slate-600 text-sm">{item.description}</p>
+    
   </div>
 );
 
@@ -116,26 +116,12 @@ export default function App() {
   return (
     <div className="min-h-screen bg-slate-50 p-8">
       <div className="max-w-2xl mx-auto space-y-6">
-        <div className="text-center sticky top-0 bg-slate-50 py-4 z-10">
-          <h1 className="text-3xl font-bold text-slate-900 mb-2">
-            無限スクロール デモ
-          </h1>
-          <p className="text-slate-600 mb-2">
-            スクロールに合わせて自動的にコンテンツを追加読み込み
-          </p>
-          <p className="text-sm text-slate-500">
-            読み込み済み: {items.length}件 / ページ: {page}
-          </p>
-        </div>
-
-        {/* アイテムリスト */}
         <div className="space-y-3">
           {items.map(item => (
             <ItemCard key={item.id} item={item} />
           ))}
         </div>
 
-        {/* ローダー（監視対象） */}
         <div ref={loaderRef} className="h-20 flex items-center justify-center">
           {isLoading && <Spinner />}
           {!hasMore && (
@@ -144,19 +130,6 @@ export default function App() {
             </div>
           )}
         </div>
-
-        {/* 説明 */}
-        {items.length === 0 && !isLoading && (
-          <div className="bg-white rounded-lg p-6 shadow-sm">
-            <h2 className="font-bold text-lg mb-2">仕組み</h2>
-            <ol className="list-decimal list-inside space-y-2 text-slate-700">
-              <li>リストの最下部に監視用の要素を配置</li>
-              <li>IntersectionObserverでその要素が見えたら検知</li>
-              <li>自動的に次のページのデータを読み込み</li>
-              <li>rootMarginで少し手前から読み込み開始</li>
-            </ol>
-          </div>
-        )}
       </div>
     </div>
   );
